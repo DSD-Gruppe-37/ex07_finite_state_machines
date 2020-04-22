@@ -2,16 +2,6 @@ LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.numeric_std.ALL;
 
--- We’ll start out with a basic state machine that implements both a Mealy and a Moore state
--- machine. Bear in mind that it is only the output process that differ between the two. The
--- “next state” process handling the state transitions is the same!
---
--- Hint! Start with just looking at the Moore output (Moo_out) and implement the
--- state machine to do this. When it works, create a Mealy output process to generate
--- the Mealy output (Mea_out). In VHDL, create a new “state” type to reflect the
--- three states: “idle”, “init” and “active (See section 10.4 in the book). This will make
--- your code more readable and state names will be visible in the simulation waveform
--- tool.
 ENTITY mee_moo IS
     PORT (
         clk, reset, a, b : IN std_logic;
@@ -25,7 +15,7 @@ ARCHITECTURE three_processes OF mee_moo IS
 BEGIN
 
     -- State register
-    state_reg : PROCESS (clk)
+    state_reg : PROCESS (clk, reset)
     BEGIN
         IF reset = '0' THEN
             present_state <= idle;
@@ -34,15 +24,13 @@ BEGIN
         END IF;
     END PROCESS;
 
-    -- Output: Moorly output
-    moorly_output : PROCESS (present_state)
+    -- Output: Moore output
+    moore_output : PROCESS (present_state)
     BEGIN
         CASE present_state IS
             WHEN idle =>
                 moo_out <= '0';
-            WHEN init =>
-                moo_out <= '1';
-            WHEN active =>
+            WHEN init | active =>
                 moo_out <= '1';
                 -- default branch
             WHEN OTHERS =>
@@ -54,7 +42,7 @@ BEGIN
     mealy_output : PROCESS (present_state, a, b)
     BEGIN
         CASE present_state IS
-            WHEN idle =>
+            WHEN idle | active =>
                 mee_out <= '0';
             WHEN init =>
                 IF a = '1' AND b = '1' THEN
@@ -62,8 +50,6 @@ BEGIN
                 ELSE
                     mee_out <= '0';
                 END IF;
-            WHEN active =>
-                mee_out <= '0';
                 -- default branch
             WHEN OTHERS =>
                 mee_out <= '0';
