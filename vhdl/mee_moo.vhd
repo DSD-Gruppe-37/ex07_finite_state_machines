@@ -57,7 +57,7 @@ BEGIN
             WHEN idle =>
                 mee_out <= '0';
             WHEN init =>
-                IF (a, b) = "11" THEN
+                IF a = '1' AND b = '1' THEN
                     mee_out <= '1';
                 ELSE
                     mee_out <= '0';
@@ -86,9 +86,9 @@ BEGIN
                     next_state <= idle;
                 END IF;
             WHEN init =>
-                IF (a, b) = "00" THEN
+                IF a = '0' AND b = '0' THEN
                     next_state <= idle;
-                ELSIF (a, b) = "01" THEN
+                ELSIF a = '0' AND b = '1' THEN
                     next_state <= active;
                 ELSE
                     next_state <= init;
