@@ -5,7 +5,7 @@
 # NOTE: you need to modify these settings:
 QBIN=c:/altera/13.0sp1/quartus/bin
 #QBIN=/opt/altera/13.0sp1/quartus/bin
-PROJECT=three_process_fsm_template
+PROJECT=ex07
 
 #DEPS = $(PROJECT).qpf $(PROJECT).qsf Makefile
 #FASTMAP=--effort=fast --incremental_compilation=full_incremental_compilation
