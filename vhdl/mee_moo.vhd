@@ -27,7 +27,7 @@ BEGIN
     -- State register
     state_reg : PROCESS (clk)
     BEGIN
-        IF reset_bar = '0' THEN
+        IF reset = '0' THEN
             present_state <= idle;
         ELSIF rising_edge(clk) THEN
             present_state <= next_state;
@@ -35,7 +35,7 @@ BEGIN
     END PROCESS;
 
     -- Output: Moorly output
-    moo_out : PROCESS (present_state)
+    moorly_output : PROCESS (present_state)
     BEGIN
         CASE present_state IS
             WHEN idle =>
@@ -51,7 +51,7 @@ BEGIN
     END PROCESS;
 
     -- Output: Mealy output
-    mee_out : PROCESS (present_state, a, b)
+    mealy_output : PROCESS (present_state, a, b)
     BEGIN
         CASE present_state IS
             WHEN idle =>
@@ -72,9 +72,9 @@ BEGIN
     END PROCESS;
 
     -- Next state
-    next_state : PROCESS (present_state, a, b)
+    next_state_proc : PROCESS (present_state, a, b)
     BEGIN
-        next_state_inner <= present_state; -- default decleration
+        next_state <= present_state; -- default decleration
 
         CASE present_state IS
             WHEN active =>
