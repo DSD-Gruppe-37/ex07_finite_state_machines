@@ -48,10 +48,14 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name VHDL_FILE mee_moo.vhd
+set_global_assignment -name VHDL_FILE mee_moo_tester.vhd
+set_global_assignment -name SEARCH_PATH output_files/ -tag from_archive
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name VHDL_FILE mee_moo.vhd
-set_global_assignment -name VHDL_FILE mee_moo_tester.vhd
-set_global_assignment -name SEARCH_PATH output_files/ -tag from_archive
+set_global_assignment -name VECTOR_WAVEFORM_FILE "ex7-1_functional_simulation.vwf"
+set_global_assignment -name SIMULATION_MODE FUNCTIONAL
+set_global_assignment -name VECTOR_OUTPUT_FORMAT VWF
+set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE "C:/au_exercises/dsd/assignments_g37/ex07_finite_state_machines/vhdl/ex7-1_functional_simulation.vwf"
