@@ -10,12 +10,13 @@ ENTITY code_lock_tester IS
         KEY      : IN std_logic_vector(3 DOWNTO 2);
         SW       : IN std_logic_vector(3 DOWNTO 0);
         LEDG     : OUT std_logic_vector(0 DOWNTO 0);
-        LEDR     : OUT std_logic_vector(0 DOWNTO 0)
+        LEDR     : OUT std_logic_vector(0 DOWNTO 0);
+        HEX0     : OUT std_logic_vector(6 DOWNTO 0)
     );
 END ENTITY code_lock_tester;
 
 ARCHITECTURE rtl OF code_lock_tester IS
-
+    SIGNAL stateSignal : std_logic_vector(3 DOWNTO 0);
 BEGIN
     uut : ENTITY code_lock
         PORT MAP
@@ -27,7 +28,14 @@ BEGIN
             enter     => KEY(3),
             -- OUTPUTS
             lock      => LEDG(0),
-            err_event => LEDR(0)
+            err_event => LEDR(0),
+            states    => stateSignal
         );
 
+    display : ENTITY bin2hex
+        PORT
+        MAP(
+        bin => stateSignal,
+        seg => HEX0
+        );
 END ARCHITECTURE rtl;
