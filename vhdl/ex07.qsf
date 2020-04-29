@@ -51,6 +51,7 @@ set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulati
 set_global_assignment -name VHDL_FILE code_lock_tester.vhd
 set_global_assignment -name VHDL_FILE code_lock.vhd
 set_global_assignment -name VHDL_FILE wrong_code.vhd
+set_global_assignment -name VHDL_FILE clock_gen.vhd
 set_global_assignment -name VHDL_FILE bin2hex.vhd
 set_global_assignment -name SEARCH_PATH output_files/ -tag from_archive
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top

@@ -28,21 +28,34 @@ BEGIN
             reset    => reset,
             -- OUTPUTS
             clk_baud => clk_baud
-
         );
 
     ReceiverEnt : ENTITY reciver
         PORT
         MAP
         (
-
+        --inputs
+        rxd      => rxd,
+        reset    => reset,
+        clk_baud => clk_baud,
+        --outputs
+        test     => test,
+        rxdata   => rxdata,
+        rxvalid  => rxvalid
         );
 
     TransmitterEnt : ENTITY transmitter
         PORT
         MAP
         (
-
+        --inputs
+        reset    => reset,
+        txdata   => txdata,
+        txvalid  => txvalid,
+        clk_baud => clk_baud,
+        -- outputs
+        test     => test,
+        txd      => txd
         );
 
 END ARCHITECTURE rtl;
