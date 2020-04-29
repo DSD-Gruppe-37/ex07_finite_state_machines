@@ -23,6 +23,7 @@ all:
 	@#$(QBIN)/quartus_sta $(PROJECT) 
 	$(QBIN)/quartus_eda $(PROJECT) 	--read_settings_files=off \
 																	--write_settings_files=off
+	$(QBIN)/quartus_pgm --no_banner --mode=jtag -o "P;./output_files/$(PROJECT).sof"
 
 srcok:
 	$(QBIN)/quartus_map $(PROJECT) 	--csf=filtref \
