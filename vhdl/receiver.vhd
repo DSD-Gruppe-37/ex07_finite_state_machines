@@ -12,7 +12,15 @@ ENTITY receiver IS
     );
 END ENTITY receiver;
 
-ARCHITECTURE three_processes OF mee_moo IS
+-- When using the bit counter note that it is actually a sub-state of the reading state.
+-- This is described in the code lock exercise step (5). You may use a counter di-
+-- rectly, just remember that you will need to store the present_bit_cnt using
+-- the state_register, as the output- and next state processes do not have a clock
+-- at therefore will infer a latch to store a value (ex: bit_cnt <= bit_cnt + 1
+-- must be bit_cnt_next <= bit_cnt_present + 1 in output process)
+
+
+ARCHITECTURE three_processes OF receiver IS
     TYPE state IS (idle, reading, stopping, latchData);
     SIGNAL present_state, next_state : state;
     SIGNAL bit_cnt                   : unsigned(7 DOWNTO 0);

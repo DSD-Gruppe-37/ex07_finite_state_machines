@@ -1,6 +1,7 @@
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.numeric_std.ALL;
+USE work.ALL;
 
 ENTITY uart IS
     PORT
@@ -30,7 +31,7 @@ BEGIN
             clk_baud => clk_baud
         );
 
-    ReceiverEnt : ENTITY reciver
+    ReceiverEnt : ENTITY receiver
         PORT
         MAP
         (
@@ -44,18 +45,18 @@ BEGIN
         rxvalid  => rxvalid
         );
 
-    TransmitterEnt : ENTITY transmitter
-        PORT
-        MAP
-        (
-        --inputs
-        reset    => reset,
-        txdata   => txdata,
-        txvalid  => txvalid,
-        clk_baud => clk_baud,
-        -- outputs
-        test     => test,
-        txd      => txd
-        );
+    -- TransmitterEnt : ENTITY transmitter
+    --     PORT
+    --     MAP
+    --     (
+    --     --inputs
+    --     reset    => reset,
+    --     txdata   => txdata,
+    --     txvalid  => txvalid,
+    --     clk_baud => clk_baud,
+    --     -- outputs
+    --     test     => test,
+    --     txd      => txd
+    --     );
 
 END ARCHITECTURE rtl;

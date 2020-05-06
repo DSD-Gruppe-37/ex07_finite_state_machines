@@ -38,5 +38,5 @@ BEGIN
             ClkDiv        <= '0';             -- with a low output
         END IF;
     END PROCESS;
-    clk_out <= ClkDiv; -- assign the clock to clock output.
+    clk_baud <= ClkDiv; -- assign the clock to clock output.
 END ARCHITECTURE ClockDivider;
