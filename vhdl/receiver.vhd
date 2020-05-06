@@ -18,20 +18,20 @@ END ENTITY receiver;
 -- the state_register, as the output- and next state processes do not have a clock
 -- at therefore will infer a latch to store a value (ex: bit_cnt <= bit_cnt + 1
 -- must be bit_cnt_next <= bit_cnt_present + 1 in output process)
-
-
 ARCHITECTURE three_processes OF receiver IS
     TYPE state IS (idle, reading, stopping, latchData);
-    SIGNAL present_state, next_state : state;
-    SIGNAL bit_cnt                   : unsigned(7 DOWNTO 0);
+    SIGNAL present_state, next_state              : state;
+    SIGNAL present_bit_cnt, next_bit_cnt, bit_cnt : unsigned(7 DOWNTO 0);
 BEGIN
     -- State register
     state_reg : PROCESS (clk_baud, reset)
     BEGIN
         IF reset = '0' THEN
-            present_state <= idle;
+            present_state   <= idle;
+            present_bit_cnt <= (OTHERS => '0'); -- set count to zero...
         ELSIF rising_edge(clk_baud) THEN
-            present_state <= next_state;
+            present_state   <= next_state;
+            present_bit_cnt <= next_bit_cnt; -- set count to next value (???)
         END IF;
     END PROCESS;
 
@@ -44,7 +44,8 @@ BEGIN
                 rxvalid <= '1';
                 rxdata  <= tempData;
             WHEN reading =>
-                bit_cnt <= bit_cnt + 1;
+                -- bit_cnt <= bit_cnt + 1;
+                next_bit_cnt <= present_bit_cnt + 1;--- According to JK 
                 tempData := rxd & tempData(7 DOWNTO 1);
             WHEN OTHERS =>
                 rxvalid <= '0';
@@ -55,14 +56,13 @@ BEGIN
     next_state_proc : PROCESS (present_state, rxd)
     BEGIN
         next_state <= present_state; -- default decleration
-
         CASE present_state IS
             WHEN idle =>
                 IF rxd = '0' THEN
                     next_state <= reading;
                 END IF;
             WHEN reading =>
-                IF bit_cnt > 7 THEN
+                IF present_bit_cnt > 7 THEN
                     next_state <= stopping;
                 END IF;
             WHEN stopping =>

@@ -12,34 +12,34 @@ ENTITY code_lock_tester IS
         LEDR     : OUT std_logic_vector(7 DOWNTO 0);
         HEX0     : OUT std_logic_vector(6 DOWNTO 0);
         GPIO_0   : OUT std_logic_vector(7 DOWNTO 0);
-        GPIO_1   : OUT std_logic_vector(2 DOWNTO 1)
+        GPIO_1   : INOUT std_logic_vector(2 DOWNTO 1)
     );
 END ENTITY code_lock_tester;
 
 ARCHITECTURE rtl OF code_lock_tester IS
-    SIGNAL rxData : std_logic;
-    SIGNAL txData : std_logic;
+    SIGNAL rxData  : std_logic_vector(7 DOWNTO 0);
+    SIGNAL rxValid : std_logic_vector(7 DOWNTO 0);
 BEGIN
     uartBlock : ENTITY uart
         PORT MAP
         (
             -- INPUTS
-            clk    => CLOCK_50,
-            reset  => KEY(2),
-            rxd    => GPIO_1(1),
-            txdata => SW,
+            clk     => CLOCK_50,
+            reset   => KEY(2),
+            rxd     => GPIO_1(1),
+            txdata  => SW,
             -- OUTPUTS
-            test   => GPIO_0,
-            txd    => GPIO_1(2),
-            rxdata => rxData,
-            txdata => txData
+            test    => GPIO_0,
+            txd     => GPIO_1(2),
+            rxdata  => rxData,
+            rxvalid => rxValid
         );
 
     RegisterBlock : ENTITY bin2hex
         PORT
         MAP(
         inA    => rxData,
-        inB    => txData,
+        inB    => rxValid,
         RegOut => LEDR
         );
 END ARCHITECTURE rtl;
