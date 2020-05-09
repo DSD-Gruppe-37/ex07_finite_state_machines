@@ -11,16 +11,13 @@ ENTITY baudGen IS
     );
 END ENTITY baudGen;
 ARCHITECTURE ClockDivider OF baudGen IS
-
     -- Signals to be used:
     SIGNAL ClkDivCounter : std_logic_vector(31 DOWNTO 0) := (OTHERS => '0'); -- For clock divisons.
     SIGNAL ClkDiv        : std_logic                     := '0';             -- Positive vs negat   ive period
-
 BEGIN
 
     ClockDivider : PROCESS (clk, reset)
     BEGIN
-
         -- reset on speed limit
         IF rising_edge(clk) THEN
             -- IF (to_integer(unsigned(ClkDivCounter)) >= 5208) THEN --9600 Baud
@@ -34,7 +31,7 @@ BEGIN
 
         END IF;
         --hard reset-- 
-        IF (reset = '0' OR ClkDiv = '1') THEN
+        IF (reset = '0') THEN
             ClkDivCounter <= (OTHERS => '0'); -- reset counter to 0..
             ClkDiv        <= '0';             -- with a low output
         END IF;

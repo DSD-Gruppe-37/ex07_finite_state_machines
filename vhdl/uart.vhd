@@ -46,18 +46,18 @@ BEGIN
         rxvalid  => rxvalid
         );
 
-    TransmitterEnt : ENTITY transmitter
-        PORT
-        MAP
-        (
-        --inputs
-        reset    => reset,
-        txdata   => txdata,
-        txvalid  => txvalid,
-        clk_baud => clk_baud,
-        -- outputs
-        -- test     => test(7 DOWNTO 0),
-        txd      => txd
-        );
+    -- TransmitterEnt : ENTITY transmitter
+    --     PORT
+    --     MAP
+    --     (
+    --     --inputs
+    --     reset    => reset,
+    --     txdata   => txdata,
+    --     txvalid  => txvalid,
+    --     clk_baud => clk_baud,
+    --     -- outputs
+    --     -- test     => test(7 DOWNTO 0),
+    --     txd      => txd
+    --     );
 
 END ARCHITECTURE rtl;

@@ -41,7 +41,6 @@ BEGIN
     RegisterBlock : ENTITY RegisterEnt
         PORT
         MAP(
-        clk_baud => CLOCK_50,
         inData   => rxData,
         inValid  => rxValid,
         RegOut   => LEDR
