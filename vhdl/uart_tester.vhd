@@ -3,22 +3,23 @@ USE IEEE.std_logic_1164.ALL;
 USE IEEE.numeric_std.ALL;
 USE work.ALL;
 
-ENTITY code_lock_tester IS
+ENTITY uart_tester IS
     PORT
     (
         CLOCK_50 : IN std_logic;
-        KEY      : IN std_logic_vector(2 DOWNTO 2);
+        KEY      : IN std_logic_vector(3 DOWNTO 2);
         SW       : IN std_logic_vector(7 DOWNTO 0);
         LEDR     : OUT std_logic_vector(7 DOWNTO 0);
+        LEDG     : OUT std_logic_vector(0 DOWNTO 0);
         HEX0     : OUT std_logic_vector(6 DOWNTO 0);
         GPIO_0   : OUT std_logic_vector(7 DOWNTO 0);
         GPIO_1   : INOUT std_logic_vector(2 DOWNTO 1)
     );
-END ENTITY code_lock_tester;
+END ENTITY uart_tester;
 
-ARCHITECTURE rtl OF code_lock_tester IS
+ARCHITECTURE rtl OF uart_tester IS
     SIGNAL rxData  : std_logic_vector(7 DOWNTO 0);
-    SIGNAL rxValid : std_logic_vector(7 DOWNTO 0);
+    SIGNAL rxValid : std_logic;
 BEGIN
     uartBlock : ENTITY uart
         PORT MAP
@@ -28,18 +29,21 @@ BEGIN
             reset   => KEY(2),
             rxd     => GPIO_1(1),
             txdata  => SW,
+            txvalid => KEY(3),
             -- OUTPUTS
-            test    => GPIO_0,
+            -- test    => GPIO_0,
+            -- txd     => ledg(0),
             txd     => GPIO_1(2),
             rxdata  => rxData,
             rxvalid => rxValid
         );
 
-    RegisterBlock : ENTITY bin2hex
+    RegisterBlock : ENTITY RegisterEnt
         PORT
         MAP(
-        inA    => rxData,
-        inB    => rxValid,
-        RegOut => LEDR
+        clk_baud => CLOCK_50,
+        inData   => rxData,
+        inValid  => rxValid,
+        RegOut   => LEDR
         );
 END ARCHITECTURE rtl;

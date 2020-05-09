@@ -10,8 +10,9 @@ ENTITY uart IS
         clk, reset, rxd, txvalid : IN std_logic;
         txdata                   : IN std_logic_vector(7 DOWNTO 0);
         -- outputs
-        txd, rxvalid, test       : OUT std_logic;
+        txd, rxvalid             : OUT std_logic;
         rxdata                   : OUT std_logic_vector(7 DOWNTO 0)
+        -- test                     : OUT std_logic_vector(7 DOWNTO 0)
     );
 END ENTITY uart;
 
@@ -40,23 +41,23 @@ BEGIN
         reset    => reset,
         clk_baud => clk_baud,
         --outputs
-        test     => test,
+        -- test     => test(7 DOWNTO 0),
         rxdata   => rxdata,
         rxvalid  => rxvalid
         );
 
-    -- TransmitterEnt : ENTITY transmitter
-    --     PORT
-    --     MAP
-    --     (
-    --     --inputs
-    --     reset    => reset,
-    --     txdata   => txdata,
-    --     txvalid  => txvalid,
-    --     clk_baud => clk_baud,
-    --     -- outputs
-    --     test     => test,
-    --     txd      => txd
-    --     );
+    TransmitterEnt : ENTITY transmitter
+        PORT
+        MAP
+        (
+        --inputs
+        reset    => reset,
+        txdata   => txdata,
+        txvalid  => txvalid,
+        clk_baud => clk_baud,
+        -- outputs
+        -- test     => test(7 DOWNTO 0),
+        txd      => txd
+        );
 
 END ARCHITECTURE rtl;

@@ -23,6 +23,7 @@ BEGIN
 
         -- reset on speed limit
         IF rising_edge(clk) THEN
+            -- IF (to_integer(unsigned(ClkDivCounter)) >= 5208) THEN --9600 Baud
             IF (to_integer(unsigned(ClkDivCounter)) >= 434) THEN --50MHz clock counting to sel. speed. (input rate/Target rate)= x
                 ClkDivCounter <= (OTHERS => '0');                    --Reset clock when limit is reached.
                 ClkDiv        <= '1';                                --Set output hi
@@ -32,7 +33,7 @@ BEGIN
             END IF;
 
         END IF;
-        --hard reset -- 
+        --hard reset-- 
         IF (reset = '0' OR ClkDiv = '1') THEN
             ClkDivCounter <= (OTHERS => '0'); -- reset counter to 0..
             ClkDiv        <= '0';             -- with a low output
