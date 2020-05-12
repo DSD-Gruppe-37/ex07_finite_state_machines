@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone II"
 set_global_assignment -name DEVICE EP2C35F672C6
-set_global_assignment -name TOP_LEVEL_ENTITY uart
+set_global_assignment -name TOP_LEVEL_ENTITY code_lock
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "09:46:07  APRIL 21, 2020"
 set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
@@ -503,5 +503,9 @@ set_global_assignment -name VECTOR_WAVEFORM_FILE output_files/UARTWaveform_.vwf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VECTOR_WAVEFORM_FILE "ex7-2_sim_normal_op.vwf"
+set_global_assignment -name VECTOR_WAVEFORM_FILE "ex7-2_sim_incorrect_and_reset.vwf"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE "C:/DSD/ex07_finite_state_machines/vhdl/output_files/UARTWaveform_.vwf"
+set_global_assignment -name VECTOR_WAVEFORM_FILE "ex7-2_cl_sim_permalock.vwf"
+set_global_assignment -name VECTOR_WAVEFORM_FILE "ex7-2_cl_sim_unlock.vwf"
+set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE "C:/au_exercises/dsd/assignments_g37/dsd_journal_04/ex07/vhdl/ex7-2_cl_sim_unlock.vwf"
